@@ -53,8 +53,8 @@ on:
 
 env:
   PROJECT_ID: shining-rampart-348016 #YOUR_PROJECT_ID 
-  SERVICE: yay-my-service # TODO: 
-  REGION:  us-central1 #YOUR_SERVICE_REGION # TODO:
+  SERVICE: yay-my-service # Any name 
+  REGION:  us-central1 #YOUR_SERVICE_REGION 
 
 jobs:
   deploy:
