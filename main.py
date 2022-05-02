@@ -6,6 +6,20 @@ import requests
 from flask import json
 from werkzeug.exceptions import HTTPException
 import logging # <-- added
+import numpy as np
+import pandas as pd
+
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.metrics import classification_report
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.svm import LinearSVC
+from sklearn.model_selection import train_test_split
+import re
+import pickle
+import pandas as pd
+
 
 app = Flask(__name__)
 
@@ -38,11 +52,20 @@ def predict():
     """
     response_object = {'status': 'success'}
     if request.method == 'POST':
-        url = request.get_json()
-        length = len(url)
-        prediction = model.predict_proba([[length]])
-        print(prediction, file = sys.stderr)
-        response_object['prediction'] = prediction.tolist()[0][1]
+        urls = [ 'https://drive--google.com/luke.johnson', 'https://efax.hosting.com.mailru382.co/efaxdelivery/2017Dk4h325RE3', 'https://drive.google.com.download-photo.sytez.net/AONh1e0hVP', 'https://www.dropbox.com/buy', 'westmountdayschool.org', 'https://myaccount.google.com-securitysettingpage.ml-security.org/signonoptions/', 'https://google.com/amp/tinyurl.com/y7u8ewlr', 'www.tripit.com/uhp/userAgreement' ]
+        x = []
+        for url in urls:
+            y= re.split("//", url, 1)[-1]+"/"
+            x.append(y )
+        print(x)
+        with open('phish-model-1649995335.cloudpickle', 'rb') as f:
+            clf_loaded = pickle.load(f)
+        test_data_sample = pd.DataFrame (x, columns = ['url_name'])
+
+        # Get predictions for the uploaded data
+        clf_loaded.predict(test_data_sample)
+            
+        response_object['prediction'] = clf_loaded.predict(test_data_sample)
     return jsonify(response_object)
 
 

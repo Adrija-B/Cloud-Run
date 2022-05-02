@@ -2,30 +2,24 @@ import requests
 
 # ~~~ make-request.py ~~~
 
-# route 1 -- ping
-def call_ping_route():
-  r = requests.get('http://localhost:5000/ping')
-  return r
+urls = [ # all stolen from https://phishingquiz.withgoogle.com/ on 2022-04-27
+  'https://drive--google.com/luke.johnson',
+  'https://efax.hosting.com.mailru382.co/efaxdelivery/2017Dk4h325RE3',
+  'https://drive.google.com.download-photo.sytez.net/AONh1e0hVP',
+  'https://www.dropbox.com/buy',
+  'westmountdayschool.org',
+  'https://myaccount.google.com-securitysettingpage.ml-security.org/signonoptions/',
+  'https://google.com/amp/tinyurl.com/y7u8ewlr',
+  'www.tripit.com/uhp/userAgreement'
+]
 
-# route 2 -- random word
-def call_random_word_route():
-  r = requests.get('http://localhost:5000/word')
-  return r
+def do_request(urls):
+    r = requests.post('http://localhost:5555/predict',json =urls)
+  pass
 
-# route 3 -- string count
-def call_string_count():
-  r = requests.post("http://localhost:5000/string-count",json ='adrija')
-  return r
+# 1. First, `post` all the urls at the same time
+do_request(urls)
 
-
-route_callers = [
-  call_ping_route,
-  call_random_word_route,
-  call_string_count
-  ]
-
-for call_route in route_callers:
-  r = call_route()
-  r.status_code
-  data = r.json()
-  print(data) # print the response
+# 2. Then, loop over the urls and post one at a time.
+for url in urls:
+  do_request([url])

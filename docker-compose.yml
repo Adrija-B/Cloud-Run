@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 services:
   web:
     build: .
@@ -6,7 +6,7 @@ services:
     ports:
       - "5555:5000"
     volumes:
-      - .:/usr/src/app
+      - .:/app
     environment:
       FLASK_ENV: development
       FLASK_DEBUG: 1
