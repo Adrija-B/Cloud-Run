@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    command: flask run
+    ports:
+      - "5555:5000"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+      FLASK_RUN_RELOAD: 1
+      FLASK_RUN_DEBUGGER: 0
+      FLASK_APP: main.py
+      FLASK_RUN_HOST: 0.0.0.0
+    container_name: my_flask
